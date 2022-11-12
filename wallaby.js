@@ -27,5 +27,6 @@ export default function() {
     testFramework: "mocha",
     symlinkNodeModules: true,
     workers: { restart: true },
+    runMode: "onsave",
   }
 }
