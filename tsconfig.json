@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
+    "lib": ["es2021", "dom"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "nodenext",
+
     "allowJs": true,
     "checkJs": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2021", "dom"],
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true
   },
-  "include": ["**/*.js", "**/*.json"],
+  "include": ["**/*.d.ts", "**/*.js", "**/*.json"],
   "exclude": ["**/node_modules"]
 }
