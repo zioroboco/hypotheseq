@@ -2,6 +2,7 @@ export default function() {
   return {
     files: [
       "package.json",
+      "tsconfig.json",
       "src/**/*.js",
       "!src/main.js",
       "!src/**/*.spec.js",
@@ -14,8 +15,13 @@ export default function() {
     env: {
       type: "node",
       runner: "node",
+      params: {
+        runner: "--no-warnings",
+      },
     },
 
+    testFramework: "mocha",
+    symlinkNodeModules: true,
     workers: { restart: true },
   }
 }
