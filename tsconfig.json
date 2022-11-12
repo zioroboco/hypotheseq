@@ -11,8 +11,10 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "strict": true
+    "strict": true,
+
+    "types": []
   },
-  "include": ["**/*.d.ts", "**/*.js", "**/*.json"],
+  "include": ["src/**/*"],
   "exclude": ["**/node_modules"]
 }
