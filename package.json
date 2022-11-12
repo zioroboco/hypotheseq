@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {},
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {}
+}
