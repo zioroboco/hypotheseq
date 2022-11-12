@@ -1,8 +1,8 @@
 export default function() {
   return {
     files: [
+      { pattern: ".env", instrument: false },
       "package.json",
-      "tsconfig.json",
       "src/**/*.js",
       "!src/main.js",
       "!src/**/*.spec.js",
@@ -18,6 +18,10 @@ export default function() {
       params: {
         runner: "--no-warnings",
       },
+    },
+
+    setup: function() {
+      require("dotenv").config()
     },
 
     testFramework: "mocha",
