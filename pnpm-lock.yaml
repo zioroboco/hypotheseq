@@ -10,6 +10,10 @@ specifiers:
   fetch-mock: ^9.11.0
   mocha: ^10.1.0
   typescript: ^4.8.4
+  zod: ^3.19.1
+
+dependencies:
+  zod: 3.19.1
 
 devDependencies:
   '@logseq/libs': 0.0.10
@@ -1336,3 +1340,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
+    dev: false

@@ -1,20 +1,25 @@
 import { expect } from "expect"
-import fm from "fetch-mock"
 import { it } from "mocha"
+import { SearchParams, SearchResult } from "./decoders.js"
 
-const {
-  HYPOTHESIS_USER: USER,
-  HYPOTHESIS_TOKEN: TOKEN,
-} = process.env
+const { HYPOTHESIS_USER, HYPOTHESIS_TOKEN } = process.env
 
-const fetch = fm.sandbox().mock("https://example.com", { hello: "world" })
+it("calls hypothesis", async () => {
+  /** @type {SearchParams} */
+  const params = {
+    user: `acct:${HYPOTHESIS_USER}`,
+  }
 
-it("mocks fetch", async () => {
-  const result = await fetch("https://example.com").then(r => r.json())
-  expect(result).toMatchObject({ hello: "world" })
-})
+  const url = "https://api.hypothes.is/api/search?"
+    + new URLSearchParams(SearchParams.parse(params))
 
-it("reads variables from .env", async () => {
-  expect(USER).toMatch(/.+@hypothes\.is$/)
-  expect(TOKEN).not.toBeUndefined()
+  const headers = new Headers({
+    Authorization: `Bearer ${HYPOTHESIS_TOKEN}`,
+  })
+
+  const data = await fetch(url, { headers })
+    .then(result => result.json())
+    .then(SearchResult.parse)
+
+  expect(data.total).toBeGreaterThan(0)
 })
