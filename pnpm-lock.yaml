@@ -3,23 +3,23 @@ lockfileVersion: 5.4
 specifiers:
   '@logseq/libs': ^0.0.10
   '@types/mocha': ^10.0.0
+  cross-fetch: ^3.1.5
   dotenv: ^16.0.3
   dprint: ^0.32.2
   expect: ^29.3.1
   fetch-mock: ^9.11.0
   mocha: ^10.1.0
-  node-fetch: ^2
   typescript: ^4.8.4
 
 devDependencies:
   '@logseq/libs': 0.0.10
   '@types/mocha': 10.0.0
+  cross-fetch: 3.1.5
   dotenv: 16.0.3
   dprint: 0.32.2
   expect: 29.3.1
-  fetch-mock: 9.11.0_node-fetch@2.6.7
+  fetch-mock: 9.11.0
   mocha: 10.1.0
-  node-fetch: 2.6.7
   typescript: 4.8.4
 
 packages:
@@ -529,6 +529,14 @@ packages:
     requiresBuild: true
     dev: true
 
+  /cross-fetch/3.1.5:
+    resolution: {integrity: sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==}
+    dependencies:
+      node-fetch: 2.6.7
+    transitivePeerDependencies:
+      - encoding
+    dev: true
+
   /csstype/3.1.0:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
     dev: true
@@ -650,7 +658,7 @@ packages:
       pend: 1.2.0
     dev: true
 
-  /fetch-mock/9.11.0_node-fetch@2.6.7:
+  /fetch-mock/9.11.0:
     resolution: {integrity: sha512-PG1XUv+x7iag5p/iNHD4/jdpxL9FtVSqRMUQhPab4hVDt80T1MH5ehzVrL2IdXO9Q2iBggArFvPqjUbHFuI58Q==}
     engines: {node: '>=4.0.0'}
     peerDependencies:
@@ -666,7 +674,6 @@ packages:
       glob-to-regexp: 0.4.1
       is-subset: 0.1.1
       lodash.isequal: 4.5.0
-      node-fetch: 2.6.7
       path-to-regexp: 2.4.0
       querystring: 0.2.1
       whatwg-url: 6.5.0

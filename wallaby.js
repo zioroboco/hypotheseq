@@ -21,6 +21,7 @@ export default function() {
     },
 
     setup: function() {
+      require("cross-fetch/polyfill")
       require("dotenv").config()
     },
 
