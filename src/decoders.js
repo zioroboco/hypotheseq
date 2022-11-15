@@ -1,9 +1,78 @@
 import { z } from "zod"
 
 /**
+ * @typedef {z.infer<typeof AnnotationSelector>} AnnotationSelector
+ * @typedef {z.infer<typeof Annotation>} Annotation
  * @typedef {z.infer<typeof SearchParams>} SearchParams
  * @typedef {z.infer<typeof SearchResult>} SearchResult
  */
+
+/**
+ * An **incomplete** decoder of a web annotation selector.
+ * https://www.w3.org/TR/annotation-model/
+ */
+export const AnnotationSelector = z.discriminatedUnion("type", [
+  z.object({
+    type: z.literal("TextQuoteSelector"),
+    exact: z.string(),
+    prefix: z.string(),
+    suffix: z.string(),
+  }),
+  z.object({ type: z.literal("FragmentSelector") }),
+  z.object({ type: z.literal("CSSSelector") }),
+  z.object({ type: z.literal("XPathSelector") }),
+  z.object({ type: z.literal("TextPositionSelector") }),
+  z.object({ type: z.literal("DataPositionSelector") }),
+  z.object({ type: z.literal("SVGSelector") }),
+  z.object({ type: z.literal("RangeSelector") }),
+])
+
+/**
+ * An **incomplete** decoder of the Hypothes.is API annotation  type.
+ * https://h.readthedocs.io/en/latest/api-reference/#tag/annotations/paths/~1search/get
+ */
+export const Annotation = z.object({
+  id: z.string(),
+
+  /** ISO 8601 date */
+  created: z.string(),
+  /** ISO 8601 date */
+  updated: z.string(),
+
+  /** URI to which the annotation applies */
+  uri: z.string().url(),
+
+  /** The user text content associated with this annotation (i.e. notes) */
+  text: z.string(),
+  tags: z.array(z.string()),
+
+  /** The user account ID in the format `acct:<username>@<authority>` */
+  user: z.string(),
+  /** The unique identifier for the annotation's group */
+  group: z.string(),
+
+  /** An object containing hypermedia links for this annotation */
+  links: z.object({
+    html: z.string().url(),
+    incontext: z.string().url(),
+    json: z.string().url(),
+  }),
+
+  /** ⚠️ **WARNING:** Not mentioned in the API docs for some reason... */
+  document: z.union([
+    z.object({ title: z.array(z.string()) }),
+    z.object({}),
+  ]),
+
+  target: z.array(
+    z.object({
+      /** The target URI for the annotation */
+      source: z.string().url(),
+      /** An array of selectors that refine this annotation's target */
+      selector: z.array(AnnotationSelector),
+    }),
+  ),
+})
 
 /**
  * An **incomplete** decoder of the Hypothes.is API search params.
@@ -137,37 +206,5 @@ export const SearchParams = z.object({
  */
 export const SearchResult = z.object({
   total: z.number().int(),
-  rows: z.array(z.object({
-    id: z.string(),
-
-    /** ISO 8601 date */
-    created: z.string(),
-    /** ISO 8601 date */
-    updated: z.string(),
-
-    /** URI to which the annotation applies */
-    uri: z.string().url(),
-
-    /** The text content of the annotation body */
-    text: z.string(),
-    tags: z.array(z.string()),
-
-    /** The user account ID in the format `acct:<username>@<authority>` */
-    user: z.string(),
-    /** The unique identifier for the annotation's group */
-    group: z.string(),
-
-    /** An object containing hypermedia links for this annotation */
-    links: z.object({
-      html: z.string().url(),
-      incontext: z.string().url(),
-      json: z.string().url(),
-    }),
-
-    /** ⚠️ **WARNING:** Not mentioned in the API docs for some reason... */
-    document: z.union([
-      z.object({ title: z.array(z.string()) }),
-      z.object({}),
-    ]),
-  })),
+  rows: z.array(Annotation),
 })
